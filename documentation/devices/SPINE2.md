@@ -178,7 +178,7 @@ aaa authorization exec default local
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| SPINES | Vlan4094 | 10.1.253.0 | Port-Channel1 |
+| SPINES | Vlan4094 | 10.1.253.0 | Port-Channel5 |
 
 Dual primary detection is disabled.
 
@@ -190,7 +190,7 @@ mlag configuration
    domain-id SPINES
    local-interface Vlan4094
    peer-address 10.1.253.0
-   peer-link Port-Channel1
+   peer-link Port-Channel5
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -275,12 +275,11 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_SPINE1_Ethernet1 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
-| Ethernet2 | LEAF1_Ethernet3 | *trunk | *10 | *- | *- | 2 |
-| Ethernet3 | LEAF2_Ethernet3 | *trunk | *10 | *- | *- | 2 |
-| Ethernet4 | LEAF3_Ethernet3 | *trunk | *20 | *- | *- | 4 |
-| Ethernet5 | LEAF4_Ethernet3 | *trunk | *20 | *- | *- | 4 |
-| Ethernet6 | MLAG_PEER_SPINE1_Ethernet6 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 1 |
+| Ethernet2 | LEAF1_Ethernet2 | *trunk | *10 | *- | *- | 2 |
+| Ethernet3 | LEAF2_Ethernet2 | *trunk | *10 | *- | *- | 2 |
+| Ethernet4 | LEAF3_Ethernet2 | *trunk | *20 | *- | *- | 4 |
+| Ethernet5 | LEAF4_Ethernet2 | *trunk | *20 | *- | *- | 4 |
+| Ethernet6 | MLAG_PEER_SPINE1_Ethernet6 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
 
 *Inherited from Port-Channel Interface
 
@@ -288,35 +287,30 @@ vlan 4094
 
 ```eos
 !
-interface Ethernet1
-   description MLAG_PEER_SPINE1_Ethernet1
-   no shutdown
-   channel-group 1 mode active
-!
 interface Ethernet2
-   description LEAF1_Ethernet3
+   description LEAF1_Ethernet2
    no shutdown
    channel-group 2 mode active
 !
 interface Ethernet3
-   description LEAF2_Ethernet3
+   description LEAF2_Ethernet2
    no shutdown
    channel-group 2 mode active
 !
 interface Ethernet4
-   description LEAF3_Ethernet3
+   description LEAF3_Ethernet2
    no shutdown
    channel-group 4 mode active
 !
 interface Ethernet5
-   description LEAF4_Ethernet3
+   description LEAF4_Ethernet2
    no shutdown
    channel-group 4 mode active
 !
 interface Ethernet6
    description MLAG_PEER_SPINE1_Ethernet6
    no shutdown
-   channel-group 1 mode active
+   channel-group 5 mode active
 ```
 
 ### Port-Channel Interfaces
@@ -327,24 +321,16 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_SPINE1_Po1 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
-| Port-Channel2 | RACK1_Po2 | switched | trunk | 10 | - | - | - | - | 2 | - |
-| Port-Channel4 | RACK2_Po2 | switched | trunk | 20 | - | - | - | - | 4 | - |
+| Port-Channel2 | RACK1_Po1 | switched | trunk | 10 | - | - | - | - | 2 | - |
+| Port-Channel4 | RACK2_Po1 | switched | trunk | 20 | - | - | - | - | 4 | - |
+| Port-Channel5 | MLAG_PEER_SPINE1_Po5 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
-interface Port-Channel1
-   description MLAG_PEER_SPINE1_Po1
-   no shutdown
-   switchport
-   switchport mode trunk
-   switchport trunk group LEAF_PEER_L3
-   switchport trunk group MLAG
-!
 interface Port-Channel2
-   description RACK1_Po2
+   description RACK1_Po1
    no shutdown
    switchport
    switchport trunk allowed vlan 10
@@ -352,12 +338,20 @@ interface Port-Channel2
    mlag 2
 !
 interface Port-Channel4
-   description RACK2_Po2
+   description RACK2_Po1
    no shutdown
    switchport
    switchport trunk allowed vlan 20
    switchport mode trunk
    mlag 4
+!
+interface Port-Channel5
+   description MLAG_PEER_SPINE1_Po5
+   no shutdown
+   switchport
+   switchport mode trunk
+   switchport trunk group LEAF_PEER_L3
+   switchport trunk group MLAG
 ```
 
 ### Loopback Interfaces

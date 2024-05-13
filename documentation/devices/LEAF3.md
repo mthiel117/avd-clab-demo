@@ -175,7 +175,7 @@ aaa authorization exec default local
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| RACK2 | Vlan4094 | 10.1.253.9 | Port-Channel1 |
+| RACK2 | Vlan4094 | 10.1.253.9 | Port-Channel3 |
 
 Dual primary detection is disabled.
 
@@ -187,7 +187,7 @@ mlag configuration
    domain-id RACK2
    local-interface Vlan4094
    peer-address 10.1.253.9
-   peer-link Port-Channel1
+   peer-link Port-Channel3
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -263,11 +263,11 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet1 | MLAG_PEER_LEAF4_Ethernet1 | *trunk | *- | *- | *['MLAG'] | 1 |
-| Ethernet2 | SPINE1_Ethernet4 | *trunk | *20 | *- | *- | 2 |
-| Ethernet3 | SPINE2_Ethernet4 | *trunk | *20 | *- | *- | 2 |
-| Ethernet4 | HOSTB_eth1 | *access | *20 | *- | *- | 4 |
-| Ethernet6 | MLAG_PEER_LEAF4_Ethernet6 | *trunk | *- | *- | *['MLAG'] | 1 |
+| Ethernet1 | SPINE1_Ethernet4 | *trunk | *20 | *- | *- | 1 |
+| Ethernet2 | SPINE2_Ethernet4 | *trunk | *20 | *- | *- | 1 |
+| Ethernet3 | MLAG_PEER_LEAF4_Ethernet3 | *trunk | *- | *- | *['MLAG'] | 3 |
+| Ethernet4 | MLAG_PEER_LEAF4_Ethernet4 | *trunk | *- | *- | *['MLAG'] | 3 |
+| Ethernet5 | HOSTB_eth1 | *access | *20 | *- | *- | 5 |
 
 *Inherited from Port-Channel Interface
 
@@ -276,29 +276,29 @@ vlan 4094
 ```eos
 !
 interface Ethernet1
-   description MLAG_PEER_LEAF4_Ethernet1
+   description SPINE1_Ethernet4
    no shutdown
    channel-group 1 mode active
 !
 interface Ethernet2
-   description SPINE1_Ethernet4
-   no shutdown
-   channel-group 2 mode active
-!
-interface Ethernet3
    description SPINE2_Ethernet4
    no shutdown
-   channel-group 2 mode active
+   channel-group 1 mode active
+!
+interface Ethernet3
+   description MLAG_PEER_LEAF4_Ethernet3
+   no shutdown
+   channel-group 3 mode active
 !
 interface Ethernet4
+   description MLAG_PEER_LEAF4_Ethernet4
+   no shutdown
+   channel-group 3 mode active
+!
+interface Ethernet5
    description HOSTB_eth1
    no shutdown
-   channel-group 4 mode active
-!
-interface Ethernet6
-   description MLAG_PEER_LEAF4_Ethernet6
-   no shutdown
-   channel-group 1 mode active
+   channel-group 5 mode active
 ```
 
 ### Port-Channel Interfaces
@@ -309,35 +309,35 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel1 | MLAG_PEER_LEAF4_Po1 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
-| Port-Channel2 | SPINES_Po4 | switched | trunk | 20 | - | - | - | - | 2 | - |
-| Port-Channel4 | HOSTB | switched | access | 20 | - | - | - | - | 4 | - |
+| Port-Channel1 | SPINES_Po4 | switched | trunk | 20 | - | - | - | - | 1 | - |
+| Port-Channel3 | MLAG_PEER_LEAF4_Po3 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
+| Port-Channel5 | HOSTB | switched | access | 20 | - | - | - | - | 5 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
 interface Port-Channel1
-   description MLAG_PEER_LEAF4_Po1
-   no shutdown
-   switchport
-   switchport mode trunk
-   switchport trunk group MLAG
-!
-interface Port-Channel2
    description SPINES_Po4
    no shutdown
    switchport
    switchport trunk allowed vlan 20
    switchport mode trunk
-   mlag 2
+   mlag 1
 !
-interface Port-Channel4
+interface Port-Channel3
+   description MLAG_PEER_LEAF4_Po3
+   no shutdown
+   switchport
+   switchport mode trunk
+   switchport trunk group MLAG
+!
+interface Port-Channel5
    description HOSTB
    no shutdown
    switchport
    switchport access vlan 20
-   mlag 4
+   mlag 5
    spanning-tree portfast
 ```
 

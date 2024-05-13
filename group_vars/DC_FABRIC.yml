@@ -15,7 +15,7 @@ l3spine:
     mlag_peer_ipv4_pool: 10.1.253.0/24
     mlag_peer_l3_ipv4_pool: 10.1.254.0/24
     virtual_router_mac_address: 00:1c:73:00:dc:01
-    mlag_interfaces: [ Ethernet1, Ethernet6 ]
+    mlag_interfaces: [ Ethernet5, Ethernet6 ]
   node_groups:
     - group: SPINES
       nodes:
@@ -34,8 +34,8 @@ leaf:
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
     uplink_switches: [ SPINE1, SPINE2 ]
-    uplink_interfaces: [ Ethernet2, Ethernet3 ]
-    mlag_interfaces: [ Ethernet1, Ethernet6 ]
+    uplink_interfaces: [ Ethernet1, Ethernet2 ]
+    mlag_interfaces: [ Ethernet3, Ethernet4 ]
   node_groups:
     - group: RACK1
       filter:
