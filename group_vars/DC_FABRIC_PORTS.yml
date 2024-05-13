@@ -14,32 +14,32 @@ port_profiles:
 # ---------------- Endpoint Connectivity ---------------- #
 ###########################################################
 
-# servers:
+servers:
 
-# # --------------------------------------------------------#
-# # DC RACK1 Endpoints
-# # --------------------------------------------------------#
+# --------------------------------------------------------#
+# DC RACK1 Endpoints
+# --------------------------------------------------------#
 
-#   - name: s1-host1                                      # Server name
-#     rack: RACK1                                         # Informational RACK (optional)
-#     adapters:
-#       - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
-#         switch_ports: [ Ethernet4, Ethernet4 ]          # Switch port to connect server (required)
-#         switches: [ LEAF1, LEAF2 ]                # Switch to connect server (required)
-#         profile: PP-VLAN10                              # Port profile to apply (required)
-#         port_channel:
-#           mode: active
+  - name: HOSTA                                      # Server name
+    rack: RACK1                                         # Informational RACK (optional)
+    adapters:
+      - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
+        switch_ports: [ Ethernet4, Ethernet4 ]          # Switch port to connect server (required)
+        switches: [ LEAF1, LEAF2 ]                # Switch to connect server (required)
+        profile: PP-VLAN10                              # Port profile to apply (required)
+        port_channel:
+          mode: active
 
-# # --------------------------------------------------------#
-# # DC RACK2 Endpoints
-# # --------------------------------------------------------#
+# --------------------------------------------------------#
+# DC RACK2 Endpoints
+# --------------------------------------------------------#
 
-#   - name: s1-host2                                      # Server name
-#     rack: RACK2                                         # Informational RACK (optional)
-#     adapters:
-#       - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
-#         switch_ports: [ Ethernet4, Ethernet4 ]          # Switch port to connect server (required)
-#         switches: [ LEAF3, LEAF4 ]                # Switch to connect server (required)
-#         profile: PP-VLAN20                              # Port profile to apply (required)
-#         port_channel:
-#           mode: active
+  - name: HOSTB                                      # Server name
+    rack: RACK2                                         # Informational RACK (optional)
+    adapters:
+      - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
+        switch_ports: [ Ethernet4, Ethernet4 ]          # Switch port to connect server (required)
+        switches: [ LEAF3, LEAF4 ]                # Switch to connect server (required)
+        profile: PP-VLAN20                              # Port profile to apply (required)
+        port_channel:
+          mode: active

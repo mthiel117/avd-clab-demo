@@ -238,11 +238,15 @@ vlan internal order ascending range 1006 1199
 
 | VLAN ID | Name | Trunk Groups |
 | ------- | ---- | ------------ |
+| 10 | Ten | - |
 | 4094 | MLAG_PEER | MLAG |
 
 ### VLANs Device Configuration
 
 ```eos
+!
+vlan 10
+   name Ten
 !
 vlan 4094
    name MLAG_PEER
@@ -260,8 +264,9 @@ vlan 4094
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
 | Ethernet1 | MLAG_PEER_LEAF1_Ethernet1 | *trunk | *- | *- | *['MLAG'] | 1 |
-| Ethernet2 | SPINE1_Ethernet3 | *trunk | *none | *- | *- | 2 |
-| Ethernet3 | SPINE2_Ethernet3 | *trunk | *none | *- | *- | 2 |
+| Ethernet2 | SPINE1_Ethernet3 | *trunk | *10 | *- | *- | 2 |
+| Ethernet3 | SPINE2_Ethernet3 | *trunk | *10 | *- | *- | 2 |
+| Ethernet4 | HOSTA_eth2 | *access | *10 | *- | *- | 4 |
 | Ethernet6 | MLAG_PEER_LEAF1_Ethernet6 | *trunk | *- | *- | *['MLAG'] | 1 |
 
 *Inherited from Port-Channel Interface
@@ -285,6 +290,11 @@ interface Ethernet3
    no shutdown
    channel-group 2 mode active
 !
+interface Ethernet4
+   description HOSTA_eth2
+   no shutdown
+   channel-group 4 mode active
+!
 interface Ethernet6
    description MLAG_PEER_LEAF1_Ethernet6
    no shutdown
@@ -300,7 +310,8 @@ interface Ethernet6
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
 | Port-Channel1 | MLAG_PEER_LEAF1_Po1 | switched | trunk | - | - | ['MLAG'] | - | - | - | - |
-| Port-Channel2 | SPINES_Po2 | switched | trunk | none | - | - | - | - | 2 | - |
+| Port-Channel2 | SPINES_Po2 | switched | trunk | 10 | - | - | - | - | 2 | - |
+| Port-Channel4 | HOSTA | switched | access | 10 | - | - | - | - | 4 | - |
 
 #### Port-Channel Interfaces Device Configuration
 
@@ -317,9 +328,17 @@ interface Port-Channel2
    description SPINES_Po2
    no shutdown
    switchport
-   switchport trunk allowed vlan none
+   switchport trunk allowed vlan 10
    switchport mode trunk
    mlag 2
+!
+interface Port-Channel4
+   description HOSTA
+   no shutdown
+   switchport
+   switchport access vlan 10
+   mlag 4
+   spanning-tree portfast
 ```
 
 ### VLAN Interfaces
