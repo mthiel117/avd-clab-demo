@@ -16,3 +16,11 @@ start-lab: ## Start Containerlab
 .PHONY: stop-lab
 stop-lab: ## Stop ContainerLab
 	sudo clab destroy -t clab/clab-L2LS-topo.yml --cleanup
+
+.PHONY: build
+build: ## Build Configs
+	ansible-playbook playbooks/build.yml
+
+.PHONY: deploy
+deploy: ## deploy Configs via eAPI
+	ansible-playbook playbooks/deploy.yml

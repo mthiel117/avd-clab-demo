@@ -1,0 +1,23 @@
+---
+DC:
+  children:
+    DC_FABRIC:
+      children:
+        DC_SPINES:
+          hosts:
+            SPINE1:
+            SPINE2:
+        DC_LEAFS:
+          hosts:
+            LEAF1:
+            LEAF2:
+            LEAF3:
+            LEAF4:
+    DC_FABRIC_SERVICES:
+      children:
+        DC_SPINES:
+        DC_LEAFS:
+    DC_FABRIC_PORTS:
+      children:
+        DC_SPINES:
+        DC_LEAFS:
