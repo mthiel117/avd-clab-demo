@@ -1,10 +1,21 @@
 ---
+# -------------------------------------------------------------
+# Arista Data Center Topology
+# 2 Spines & 2 Leaf Pairs with MLAG
+# -------------------------------------------------------------
+
+#https://containerlab.dev/manual/topo-def-file/#name
 name: L2LS
+
+#https://containerlab.dev/manual/topo-def-file/#prefix
 prefix: ""
+
+#https://containerlab.dev/manual/network/#configuring-management-network
 mgmt:
   network: mgmt
   ipv4-subnet: 172.100.100.0/24
 
+#https://containerlab.dev/manual/topo-def-file/#topology
 topology:
 
   defaults:
@@ -19,6 +30,34 @@ topology:
 
   nodes:
 
+###########################################
+# Graphite Node                           #
+# Provides Topology Graphing and the     #
+# ability to connect to nodes in the      #
+# topology via a web/ssh session          #
+###########################################
+
+    graphite:
+      kind: linux
+      image: netreplica/graphite
+      mgmt-ipv4: 172.100.100.109
+      env:
+        HOST_CONNECTION: ${SSH_CONNECTION}
+      binds:
+        - __clabDir__/topology-data.json:/htdocs/default/default.json:ro
+        - __clabDir__/ansible-inventory.yml:/htdocs/lab/default/ansible-inventory.yml:ro
+      ports:
+        - 80:80
+      exec:
+        - sh -c 'graphite_motd.sh 80'
+      labels:
+        graph-hide: yes
+
+#########################
+# SPINE                 #
+#########################
+
+#https://containerlab.dev/manual/topo-def-file/#nodes
     SPINE1:
       kind: ceos
       mgmt-ipv4: 172.100.100.101
@@ -123,18 +162,34 @@ topology:
         graph-level: 3
         graph-icon: host
 
+#https://containerlab.dev/manual/topo-def-file/#links
   links:
 
+####################
+# SPINE1 to LEAF   #
+####################
     - endpoints: ["SPINE1:et1", "LEAF1:et1"]
     - endpoints: ["SPINE1:et2", "LEAF2:et1"]
     - endpoints: ["SPINE1:et3", "LEAF3:et1"]
     - endpoints: ["SPINE1:et4", "LEAF4:et1"]
+
+####################
+# SPINE2 to LEAF   #
+####################
     - endpoints: ["SPINE2:et1", "LEAF1:et2"]
     - endpoints: ["SPINE2:et2", "LEAF2:et2"]
     - endpoints: ["SPINE2:et3", "LEAF3:et2"]
     - endpoints: ["SPINE2:et4", "LEAF4:et2"]
+
+####################
+# SPINE1 to SPINE2 #
+####################
     - endpoints: ["SPINE1:et5", "SPINE2:et5"]
     - endpoints: ["SPINE1:et6", "SPINE2:et6"]
+
+####################
+# LEAF1 to LEAF2   #
+####################
     - endpoints: ["LEAF1:et3", "LEAF2:et3"]
     - endpoints: ["LEAF1:et4", "LEAF2:et4"]
 
