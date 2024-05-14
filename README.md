@@ -36,7 +36,13 @@ Login with credentials:
 <img src="images/websession.png" width="300">
 </p>
 
-Connect to HostA and try pinging HostB.
+## AVD - Build and Deploy Configs
+
+``` bash
+make build deploy
+```
+
+## Connect to HostA and try pinging HostB.
 
 ```bash
 admin@HOSTA:~$ ping 10.20.20.100
