@@ -95,30 +95,30 @@ port_channel_interfaces:
   trunk_groups:
   - LEAF_PEER_L3
   - MLAG
-- name: Port-Channel2
+- name: Port-Channel1
   description: RACK1_Po1
   type: switched
   shutdown: false
   mode: trunk
   vlans: '10'
-  mlag: 2
-- name: Port-Channel4
+  mlag: 1
+- name: Port-Channel3
   description: RACK2_Po1
   type: switched
   shutdown: false
   mode: trunk
   vlans: '20'
-  mlag: 4
+  mlag: 3
 ethernet_interfaces:
 - name: Ethernet5
-  peer: LEAF4
-  peer_interface: Ethernet2
-  peer_type: leaf
-  description: LEAF4_Ethernet2
+  peer: SPINE1
+  peer_interface: Ethernet5
+  peer_type: mlag_peer
+  description: MLAG_PEER_SPINE1_Ethernet5
   type: port-channel-member
   shutdown: false
   channel_group:
-    id: 4
+    id: 5
     mode: active
 - name: Ethernet6
   peer: SPINE1
@@ -130,7 +130,7 @@ ethernet_interfaces:
   channel_group:
     id: 5
     mode: active
-- name: Ethernet2
+- name: Ethernet1
   peer: LEAF1
   peer_interface: Ethernet2
   peer_type: leaf
@@ -138,9 +138,9 @@ ethernet_interfaces:
   shutdown: false
   type: port-channel-member
   channel_group:
-    id: 2
+    id: 1
     mode: active
-- name: Ethernet3
+- name: Ethernet2
   peer: LEAF2
   peer_interface: Ethernet2
   peer_type: leaf
@@ -148,9 +148,9 @@ ethernet_interfaces:
   shutdown: false
   type: port-channel-member
   channel_group:
-    id: 2
+    id: 1
     mode: active
-- name: Ethernet4
+- name: Ethernet3
   peer: LEAF3
   peer_interface: Ethernet2
   peer_type: leaf
@@ -158,7 +158,17 @@ ethernet_interfaces:
   shutdown: false
   type: port-channel-member
   channel_group:
-    id: 4
+    id: 3
+    mode: active
+- name: Ethernet4
+  peer: LEAF4
+  peer_interface: Ethernet2
+  peer_type: leaf
+  description: LEAF4_Ethernet2
+  shutdown: false
+  type: port-channel-member
+  channel_group:
+    id: 3
     mode: active
 mlag_configuration:
   domain_id: SPINES

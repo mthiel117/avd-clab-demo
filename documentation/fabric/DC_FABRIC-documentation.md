@@ -35,18 +35,19 @@
 
 | Type | Node | Node Interface | Peer Type | Peer Node | Peer Interface |
 | ---- | ---- | -------------- | --------- | ----------| -------------- |
-| leaf | LEAF1 | Ethernet1 | l3spine | SPINE1 | Ethernet2 |
-| leaf | LEAF1 | Ethernet2 | l3spine | SPINE2 | Ethernet2 |
+| leaf | LEAF1 | Ethernet1 | l3spine | SPINE1 | Ethernet1 |
+| leaf | LEAF1 | Ethernet2 | l3spine | SPINE2 | Ethernet1 |
 | leaf | LEAF1 | Ethernet3 | mlag_peer | LEAF2 | Ethernet3 |
 | leaf | LEAF1 | Ethernet4 | mlag_peer | LEAF2 | Ethernet4 |
-| leaf | LEAF2 | Ethernet1 | l3spine | SPINE1 | Ethernet3 |
-| leaf | LEAF2 | Ethernet2 | l3spine | SPINE2 | Ethernet3 |
-| leaf | LEAF3 | Ethernet1 | l3spine | SPINE1 | Ethernet4 |
-| leaf | LEAF3 | Ethernet2 | l3spine | SPINE2 | Ethernet4 |
+| leaf | LEAF2 | Ethernet1 | l3spine | SPINE1 | Ethernet2 |
+| leaf | LEAF2 | Ethernet2 | l3spine | SPINE2 | Ethernet2 |
+| leaf | LEAF3 | Ethernet1 | l3spine | SPINE1 | Ethernet3 |
+| leaf | LEAF3 | Ethernet2 | l3spine | SPINE2 | Ethernet3 |
 | leaf | LEAF3 | Ethernet3 | mlag_peer | LEAF4 | Ethernet3 |
 | leaf | LEAF3 | Ethernet4 | mlag_peer | LEAF4 | Ethernet4 |
-| leaf | LEAF4 | Ethernet1 | l3spine | SPINE1 | Ethernet5 |
-| leaf | LEAF4 | Ethernet2 | l3spine | SPINE2 | Ethernet5 |
+| leaf | LEAF4 | Ethernet1 | l3spine | SPINE1 | Ethernet4 |
+| leaf | LEAF4 | Ethernet2 | l3spine | SPINE2 | Ethernet4 |
+| l3spine | SPINE1 | Ethernet5 | mlag_peer | SPINE2 | Ethernet5 |
 | l3spine | SPINE1 | Ethernet6 | mlag_peer | SPINE2 | Ethernet6 |
 
 ## Fabric IP Allocation

@@ -275,10 +275,11 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet2 | LEAF1_Ethernet2 | *trunk | *10 | *- | *- | 2 |
-| Ethernet3 | LEAF2_Ethernet2 | *trunk | *10 | *- | *- | 2 |
-| Ethernet4 | LEAF3_Ethernet2 | *trunk | *20 | *- | *- | 4 |
-| Ethernet5 | LEAF4_Ethernet2 | *trunk | *20 | *- | *- | 4 |
+| Ethernet1 | LEAF1_Ethernet2 | *trunk | *10 | *- | *- | 1 |
+| Ethernet2 | LEAF2_Ethernet2 | *trunk | *10 | *- | *- | 1 |
+| Ethernet3 | LEAF3_Ethernet2 | *trunk | *20 | *- | *- | 3 |
+| Ethernet4 | LEAF4_Ethernet2 | *trunk | *20 | *- | *- | 3 |
+| Ethernet5 | MLAG_PEER_SPINE1_Ethernet5 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
 | Ethernet6 | MLAG_PEER_SPINE1_Ethernet6 | *trunk | *- | *- | *['LEAF_PEER_L3', 'MLAG'] | 5 |
 
 *Inherited from Port-Channel Interface
@@ -287,25 +288,30 @@ vlan 4094
 
 ```eos
 !
-interface Ethernet2
+interface Ethernet1
    description LEAF1_Ethernet2
    no shutdown
-   channel-group 2 mode active
+   channel-group 1 mode active
 !
-interface Ethernet3
+interface Ethernet2
    description LEAF2_Ethernet2
    no shutdown
-   channel-group 2 mode active
+   channel-group 1 mode active
 !
-interface Ethernet4
+interface Ethernet3
    description LEAF3_Ethernet2
    no shutdown
-   channel-group 4 mode active
+   channel-group 3 mode active
 !
-interface Ethernet5
+interface Ethernet4
    description LEAF4_Ethernet2
    no shutdown
-   channel-group 4 mode active
+   channel-group 3 mode active
+!
+interface Ethernet5
+   description MLAG_PEER_SPINE1_Ethernet5
+   no shutdown
+   channel-group 5 mode active
 !
 interface Ethernet6
    description MLAG_PEER_SPINE1_Ethernet6
@@ -321,29 +327,29 @@ interface Ethernet6
 
 | Interface | Description | Type | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel2 | RACK1_Po1 | switched | trunk | 10 | - | - | - | - | 2 | - |
-| Port-Channel4 | RACK2_Po1 | switched | trunk | 20 | - | - | - | - | 4 | - |
+| Port-Channel1 | RACK1_Po1 | switched | trunk | 10 | - | - | - | - | 1 | - |
+| Port-Channel3 | RACK2_Po1 | switched | trunk | 20 | - | - | - | - | 3 | - |
 | Port-Channel5 | MLAG_PEER_SPINE1_Po5 | switched | trunk | - | - | ['LEAF_PEER_L3', 'MLAG'] | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
-interface Port-Channel2
+interface Port-Channel1
    description RACK1_Po1
    no shutdown
    switchport
    switchport trunk allowed vlan 10
    switchport mode trunk
-   mlag 2
+   mlag 1
 !
-interface Port-Channel4
+interface Port-Channel3
    description RACK2_Po1
    no shutdown
    switchport
    switchport trunk allowed vlan 20
    switchport mode trunk
-   mlag 4
+   mlag 3
 !
 interface Port-Channel5
    description MLAG_PEER_SPINE1_Po5

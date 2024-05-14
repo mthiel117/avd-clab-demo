@@ -44,11 +44,11 @@ leaf:
         - name: LEAF1
           id: 3
           mgmt_ip: 172.100.100.103/24
-          uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
+          uplink_switch_interfaces: [ Ethernet1, Ethernet1 ]
         - name: LEAF2
           id: 4
           mgmt_ip: 172.100.100.104/24
-          uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
+          uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
     - group: RACK2
       filter:
         tags: [ "App" ]
@@ -56,11 +56,11 @@ leaf:
         - name: LEAF3
           id: 5
           mgmt_ip: 172.100.100.105/24
-          uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
+          uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
         - name: LEAF4
           id: 6
           mgmt_ip: 172.100.100.106/24
-          uplink_switch_interfaces: [ Ethernet5, Ethernet5 ]
+          uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
 
 ##################################################################
 # Underlay Routing Protocol - ran on Spines
