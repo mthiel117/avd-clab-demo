@@ -143,7 +143,7 @@ topology:
       image: mitchv85/ohv-host
       mgmt-ipv4: 172.100.100.107
       ports:
-        - '22207:22'
+        - '22007:22'
       exec:
         - bash /usr/local/bin/hostnetconfig.sh -b -i 10.10.10.100/24 -g 10.10.10.1
       labels:
@@ -155,7 +155,7 @@ topology:
       image: mitchv85/ohv-host
       mgmt-ipv4: 172.100.100.108
       ports:
-        - '22208:22'
+        - '22008:22'
       exec:
         - bash /usr/local/bin/hostnetconfig.sh -b -i 10.20.20.100/24 -g 10.20.20.1
       labels:
