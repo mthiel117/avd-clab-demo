@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  avd-evpn-demo:
+    build: .
+    image: "avd-evpn-demo:latest"
+    container_name: avd-evpn-demo
+    restart: always
+    command: ['tail', '-f', '/dev/null']
+
+    environment:
+      - TZ=America/New_York
+      - DEBIAN_FRONTEND=noninteractive
+    volumes:
+      - ../:/workspace
