@@ -35,6 +35,12 @@ l3leaf:
     uplink_switches: [ SPINE1, SPINE2 ]
     uplink_interfaces: [ Ethernet1, Ethernet2 ]
     mlag_interfaces: [ Ethernet3, Ethernet4 ]
+    structured_config:
+      vxlan_interface:
+        vxlan1:
+          eos_cli: |
+            icmp helper
+            icmp helper vrf Red
   node_groups:
     - group: POD1
       bgp_as: 65001

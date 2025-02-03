@@ -483,6 +483,9 @@ interface Vxlan1
    vxlan udp-port 4789
    vxlan vlan 20 vni 10020
    vxlan vrf Red vni 50001
+   icmp helper
+   icmp helper vrf Red
+
 ```
 
 ## Routing

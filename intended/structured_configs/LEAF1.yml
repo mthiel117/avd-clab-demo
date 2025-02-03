@@ -331,5 +331,10 @@ vxlan_interface:
       vrfs:
       - name: Red
         vni: 50001
+    eos_cli: 'icmp helper
+
+      icmp helper vrf Red
+
+      '
 metadata:
   platform: cEOS
