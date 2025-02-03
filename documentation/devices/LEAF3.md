@@ -375,7 +375,7 @@ interface Port-Channel5
 | Interface | Description | VRF | IP Address |
 | --------- | ----------- | --- | ---------- |
 | Loopback0 | ROUTER_ID | default | 1.1.1.3/32 |
-| Loopback1 | VXLAN_TUNNEL_SOURCE | default | 2.2.2.3/32 |
+| Loopback1 | VXLAN_TUNNEL_SOURCE | default | 2.2.2.2/32 |
 
 ##### IPv6
 
@@ -396,7 +396,7 @@ interface Loopback0
 interface Loopback1
    description VXLAN_TUNNEL_SOURCE
    no shutdown
-   ip address 2.2.2.3/32
+   ip address 2.2.2.2/32
 ```
 
 ### VLAN Interfaces
@@ -414,7 +414,7 @@ interface Loopback1
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
-| Vlan20 |  Red  |  -  |  -  |  -  |  -  |  -  |
+| Vlan20 |  Red  |  -  |  10.20.20.1/24  |  -  |  -  |  -  |
 | Vlan3001 |  Red  |  10.1.254.4/31  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.1.254.4/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.1.253.4/31  |  -  |  -  |  -  |  -  |
@@ -427,6 +427,7 @@ interface Vlan20
    description Twenty
    no shutdown
    vrf Red
+   ip address virtual 10.20.20.1/24
 !
 interface Vlan3001
    description MLAG_L3_VRF_Red

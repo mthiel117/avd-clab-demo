@@ -183,6 +183,7 @@ vlan_interfaces:
   - Web
   description: Ten
   shutdown: false
+  ip_address_virtual: 10.10.10.1/24
   vrf: Red
 - name: Vlan3001
   tenant: MY_FABRIC

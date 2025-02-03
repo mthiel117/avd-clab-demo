@@ -51,6 +51,7 @@ l3leaf:
           uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
     - group: POD2
       bgp_as: 65002
+      vtep_loopback_ipv4_address: 2.2.2.2
       filter:
         tags: [ "App" ]
       nodes:

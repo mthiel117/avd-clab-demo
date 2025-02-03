@@ -414,7 +414,7 @@ interface Loopback1
 
 | Interface | VRF | IP Address | IP Address Virtual | IP Router Virtual Address | ACL In | ACL Out |
 | --------- | --- | ---------- | ------------------ | ------------------------- | ------ | ------- |
-| Vlan10 |  Red  |  -  |  -  |  -  |  -  |  -  |
+| Vlan10 |  Red  |  -  |  10.10.10.1/24  |  -  |  -  |  -  |
 | Vlan3001 |  Red  |  10.1.254.0/31  |  -  |  -  |  -  |  -  |
 | Vlan4093 |  default  |  10.1.254.0/31  |  -  |  -  |  -  |  -  |
 | Vlan4094 |  default  |  10.1.253.0/31  |  -  |  -  |  -  |  -  |
@@ -427,6 +427,7 @@ interface Vlan10
    description Ten
    no shutdown
    vrf Red
+   ip address virtual 10.10.10.1/24
 !
 interface Vlan3001
    description MLAG_L3_VRF_Red

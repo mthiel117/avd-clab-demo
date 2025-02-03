@@ -183,6 +183,7 @@ vlan_interfaces:
   - App
   description: Twenty
   shutdown: false
+  ip_address_virtual: 10.20.20.1/24
   vrf: Red
 - name: Vlan3001
   tenant: MY_FABRIC
@@ -297,7 +298,7 @@ loopback_interfaces:
 - name: Loopback1
   description: VXLAN_TUNNEL_SOURCE
   shutdown: false
-  ip_address: 2.2.2.3/32
+  ip_address: 2.2.2.2/32
 prefix_lists:
 - name: PL-LOOPBACKS-EVPN-OVERLAY
   sequence_numbers:

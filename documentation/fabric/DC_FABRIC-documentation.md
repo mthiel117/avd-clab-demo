@@ -98,5 +98,5 @@
 | --- | ---- | --------- |
 | DC_FABRIC | LEAF1 | 2.2.2.1/32 |
 | DC_FABRIC | LEAF2 | 2.2.2.1/32 |
-| DC_FABRIC | LEAF3 | 2.2.2.3/32 |
-| DC_FABRIC | LEAF4 | 2.2.2.3/32 |
+| DC_FABRIC | LEAF3 | 2.2.2.2/32 |
+| DC_FABRIC | LEAF4 | 2.2.2.2/32 |
