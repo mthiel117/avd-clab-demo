@@ -6,19 +6,19 @@ DC:
         DC_SPINES:
           hosts:
             SPINE1:
-              ansible_host: 172.100.100.101
+              ansible_host: 172.31.0.22
             SPINE2:
-              ansible_host: 172.100.100.102
+              ansible_host: 172.31.0.23
         DC_LEAFS:
           hosts:
             LEAF1:
-              ansible_host: 172.100.100.103
+              ansible_host: 172.31.0.27
             LEAF2:
-              ansible_host: 172.100.100.104
+              ansible_host: 172.31.0.28
             LEAF3:
-              ansible_host: 172.100.100.105
+              ansible_host: 172.31.0.29
             LEAF4:
-              ansible_host: 172.100.100.106
+              ansible_host: 172.31.0.19
     DC_FABRIC_SERVICES:
       children:
         DC_SPINES:
@@ -27,10 +27,3 @@ DC:
       children:
         DC_SPINES:
         DC_LEAFS:
-
-# LEAF1    | 172.100.100.103/24
-# LEAF2    | 172.100.100.104/24
-# LEAF3    | 172.100.100.105/24
-# LEAF4    | 172.100.100.106/24
-# SPINE1   | 172.100.100.101/24
-# SPINE2   | 172.100.100.102/24

@@ -60,7 +60,7 @@ topology:
 #https://containerlab.dev/manual/topo-def-file/#nodes
     SPINE1:
       kind: ceos
-      mgmt-ipv4: 172.100.100.101
+      mgmt-ipv4: 172.31.0.22
       startup-config: startup-configs/SPINE1.cfg
       ports:
         - '22001:22'
@@ -72,7 +72,7 @@ topology:
 
     SPINE2:
       kind: ceos
-      mgmt-ipv4: 172.100.100.102
+      mgmt-ipv4: 172.31.0.23
       startup-config: startup-configs/SPINE2.cfg
       ports:
         - '22002:22'
@@ -88,7 +88,7 @@ topology:
 
     LEAF1:
       kind: ceos
-      mgmt-ipv4: 172.100.100.103
+      mgmt-ipv4: 172.31.0.27
       startup-config: startup-configs/LEAF1.cfg
       ports:
         - '22003:22'
@@ -100,7 +100,7 @@ topology:
 
     LEAF2:
       kind: ceos
-      mgmt-ipv4: 172.100.100.104
+      mgmt-ipv4: 172.31.0.28
       startup-config: startup-configs/LEAF2.cfg
       ports:
         - '22004:22'
@@ -112,7 +112,7 @@ topology:
 
     LEAF3:
       kind: ceos
-      mgmt-ipv4: 172.100.100.105
+      mgmt-ipv4: 172.31.0.29
       startup-config: startup-configs/LEAF3.cfg
       ports:
         - '22005:22'
@@ -124,7 +124,7 @@ topology:
 
     LEAF4:
       kind: ceos
-      mgmt-ipv4: 172.100.100.106
+      mgmt-ipv4: 172.31.0.19
       startup-config: startup-configs/LEAF4.cfg
       ports:
         - '22006:22'

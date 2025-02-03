@@ -15,10 +15,10 @@ spine:
       nodes:
         - name: SPINE1
           id: 1
-          mgmt_ip: 172.100.100.101/24
+          mgmt_ip: 172.31.0.22/23
         - name: SPINE2
           id: 2
-          mgmt_ip: 172.100.100.102/24
+          mgmt_ip: 172.31.0.23/23
 
 # Leaf Switches
 l3leaf:
@@ -49,11 +49,11 @@ l3leaf:
       nodes:
         - name: LEAF1
           id: 1
-          mgmt_ip: 172.100.100.103/24
+          mgmt_ip: 172.31.0.27/23
           uplink_switch_interfaces: [ Ethernet1, Ethernet1 ]
         - name: LEAF2
           id: 2
-          mgmt_ip: 172.100.100.104/24
+          mgmt_ip: 172.31.0.28/23
           uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
     - group: POD2
       bgp_as: 65002
@@ -63,9 +63,9 @@ l3leaf:
       nodes:
         - name: LEAF3
           id: 3
-          mgmt_ip: 172.100.100.105/24
+          mgmt_ip: 172.31.0.29/23
           uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
         - name: LEAF4
           id: 4
-          mgmt_ip: 172.100.100.106/24
+          mgmt_ip: 172.31.0.19/23
           uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
