@@ -48,20 +48,27 @@ ip_name_servers:
     vrf: MGMT
 
 # TerminAttr
-# daemon_terminattr:
-#   # Address of the gRPC server on CloudVision
-#   # TCP 9910 is used on on-prem
-#   # TCP 443 is used on CV as a Service
-#   cvaddrs: # For single cluster
-#     - 192.168.0.5:9910
-#   # Authentication scheme used to connect to CloudVision
-#   cvauth:
-#     method: token
-#     token_file: "/tmp/token"
-#   # Exclude paths from Sysdb on the ingest side
-#   ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
-#   # Exclude paths from the shared memory table
-#   smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+daemon_terminattr:
+  # Address of the gRPC server on CloudVision
+  # TCP 9910 is used on on-prem
+  # TCP 443 is used on CV as a Service
+  cvaddrs: # For single cluster
+    - apiserver.cv-staging.corp.arista.io:443
+  # Authentication scheme used to connect to CloudVision
+  cvauth:
+    method: token-secure
+    token_file: "/tmp/cv-onboarding-token"
+  # Exclude paths from Sysdb on the ingest side
+  ingestexclude: /Sysdb/cell/1/agent,/Sysdb/cell/2/agent
+  # Exclude paths from the shared memory table
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+  disable_aaa: true
+  cvvrf: MGMT
+
+# daemon TerminAttr
+#    exec /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvcompression=gzip -taillogs -cvauth=token-secure,/tmp/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent --disableaaa
+#    no shutdown
+# !
 
 # Point to Point Links MTU Override for Lab
 p2p_uplinks_mtu: 1500
