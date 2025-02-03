@@ -1,21 +1,15 @@
 ---
 fabric_name: DC_FABRIC
 
-# Set Design Type to L2ls
-design:
-  type: l2ls
-
 # Spine Switches
-l3spine:
+spine:
   defaults:
     platform: cEOS
+    bgp_as: 65000
     spanning_tree_mode: mstp
     spanning_tree_priority: 4096
-    loopback_ipv4_pool: 10.1.252.0/24
-    mlag_peer_ipv4_pool: 10.1.253.0/24
-    mlag_peer_l3_ipv4_pool: 10.1.254.0/24
-    virtual_router_mac_address: 00:1c:73:00:dc:01
-    mlag_interfaces: [ Ethernet5, Ethernet6 ]
+    loopback_ipv4_pool: 1.1.1.0/24
+    loopback_ipv4_offset: 98
   node_groups:
     - group: SPINES
       nodes:
@@ -27,43 +21,44 @@ l3spine:
           mgmt_ip: 172.100.100.102/24
 
 # Leaf Switches
-leaf:
+l3leaf:
   defaults:
     platform: cEOS
+    loopback_ipv4_pool: 1.1.1.0/24
+    vtep_loopback_ipv4_pool: 2.2.2.0/24
     mlag_peer_ipv4_pool: 10.1.253.0/24
+    mlag_peer_l3_ipv4_pool: 10.1.254.0/24
+    uplink_ipv4_pool: 10.0.0.0/24
+    virtual_router_mac_address: aa:aa:bb:bb:cc:cc
     spanning_tree_mode: mstp
     spanning_tree_priority: 16384
     uplink_switches: [ SPINE1, SPINE2 ]
     uplink_interfaces: [ Ethernet1, Ethernet2 ]
     mlag_interfaces: [ Ethernet3, Ethernet4 ]
   node_groups:
-    - group: RACK1
+    - group: POD1
+      bgp_as: 65001
       filter:
         tags: [ "Web" ]
       nodes:
         - name: LEAF1
-          id: 3
+          id: 1
           mgmt_ip: 172.100.100.103/24
           uplink_switch_interfaces: [ Ethernet1, Ethernet1 ]
         - name: LEAF2
-          id: 4
+          id: 2
           mgmt_ip: 172.100.100.104/24
           uplink_switch_interfaces: [ Ethernet2, Ethernet2 ]
-    - group: RACK2
+    - group: POD2
+      bgp_as: 65002
       filter:
         tags: [ "App" ]
       nodes:
         - name: LEAF3
-          id: 5
+          id: 3
           mgmt_ip: 172.100.100.105/24
           uplink_switch_interfaces: [ Ethernet3, Ethernet3 ]
         - name: LEAF4
-          id: 6
+          id: 4
           mgmt_ip: 172.100.100.106/24
           uplink_switch_interfaces: [ Ethernet4, Ethernet4 ]
-
-##################################################################
-# Underlay Routing Protocol - ran on Spines
-##################################################################
-
-underlay_routing_protocol: OSPF

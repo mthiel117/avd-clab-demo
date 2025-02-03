@@ -24,7 +24,7 @@ topology:
 
   kinds:
     ceos:
-      image: ceos:4.30.4M
+      image: ceos-mekong:latest
     linux:
       image: mitchv85/ohv-host
 

@@ -1,8 +1,15 @@
 ---
+mlag_ibgp_peering_vrfs:
+  base_vlan: 3001
+
 tenants:
   - name: MY_FABRIC
+    mac_vrf_vni_base: 10000
     vrfs:
-      - name: default
+      - name: Red
+        vrf_vni: 50001
+        vrf_id: 1
+        # mlag_ibgp_peering_vlan: 3001
         svis:
           - id: 10
             name: 'Ten'

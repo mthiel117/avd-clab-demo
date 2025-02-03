@@ -13,7 +13,6 @@ ansible_httpapi_port: 443
 ansible_httpapi_use_ssl: true
 ansible_httpapi_validate_certs: false
 ansible_python_interpreter: $(which python3)
-avd_data_conversion_mode: error
 avd_data_validation_mode: error
 
 # Local Users
@@ -67,6 +66,6 @@ ip_name_servers:
 # Point to Point Links MTU Override for Lab
 p2p_uplinks_mtu: 1500
 
-# CVP node variables
-cv_collection: v3
-execute_tasks: true
+# # CVP node variables
+# cv_collection: v3
+# execute_tasks: true
