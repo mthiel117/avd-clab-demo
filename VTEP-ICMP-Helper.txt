@@ -1,0 +1,20 @@
+Before VTEP ICMP helper feature
+===================================================
+7020SR-1#traceroute 10.20.20.100
+traceroute to 10.20.20.100 (10.20.20.100), 30 hops max, 60 byte packets
+ 1  _gateway (10.10.10.1)  0.242 ms  0.190 ms  0.169 ms
+ 2  10.20.20.1 (10.20.20.1)  0.182 ms  0.221 ms  0.202 ms
+ 3  10.20.20.100 (10.20.20.100)  0.234 ms  0.352 ms  0.336 ms
+7020SR-1#
+
+
+
+With VTEP ICMP helper feature - Mekong 4.33.2F EFT
+Shows the VTEP Address
+===================================================
+7020SR-1#traceroute 10.20.20.100
+traceroute to 10.20.20.100 (10.20.20.100), 30 hops max, 60 byte packets
+ 1  2.2.2.1 (2.2.2.1)  0.530 ms  0.454 ms  0.437 ms
+ 2  2.2.2.2 (2.2.2.2)  0.503 ms  0.483 ms  0.468 ms
+ 3  10.20.20.100 (10.20.20.100)  0.248 ms  0.336 ms  0.318 ms
+7020SR-1#
