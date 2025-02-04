@@ -210,7 +210,7 @@ daemon TerminAttr
 
 | Domain-id | Local-interface | Peer-address | Peer-link |
 | --------- | --------------- | ------------ | --------- |
-| POD1 | Vlan4094 | 10.1.253.1 | Port-Channel3 |
+| POD1 | Vlan4094 | 10.1.253.1 | Port-Channel45 |
 
 Dual primary detection is disabled.
 
@@ -222,7 +222,7 @@ mlag configuration
    domain-id POD1
    local-interface Vlan4094
    peer-address 10.1.253.1
-   peer-link Port-Channel3
+   peer-link Port-Channel45
    reload-delay mlag 300
    reload-delay non-mlag 330
 ```
@@ -308,9 +308,8 @@ vlan 4094
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
 | --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
-| Ethernet3 | MLAG_LEAF2_Ethernet3 | *trunk | *- | *- | *MLAG | 3 |
-| Ethernet4 | MLAG_LEAF2_Ethernet4 | *trunk | *- | *- | *MLAG | 3 |
-| Ethernet5 | SERVER_HOSTA_eth1 | *access | *10 | *- | *- | 5 |
+| Ethernet1 | SERVER_HOSTA_eth21 | *access | *10 | *- | *- | 1 |
+| Ethernet45 | MLAG_LEAF2_Ethernet43 | *trunk | *- | *- | *MLAG | 45 |
 
 *Inherited from Port-Channel Interface
 
@@ -318,41 +317,36 @@ vlan 4094
 
 | Interface | Description | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_SPINE1_Ethernet1 | - | 10.0.0.1/31 | default | 1500 | False | - | - |
-| Ethernet2 | P2P_SPINE2_Ethernet1 | - | 10.0.0.3/31 | default | 1500 | False | - | - |
+| Ethernet21 | P2P_SPINE1_Ethernet9/1 | - | 10.0.0.1/31 | default | 1500 | False | - | - |
+| Ethernet22 | P2P_SPINE2_Ethernet1/1 | - | 10.0.0.3/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
 interface Ethernet1
-   description P2P_SPINE1_Ethernet1
+   description SERVER_HOSTA_eth21
+   no shutdown
+   channel-group 1 mode active
+!
+interface Ethernet21
+   description P2P_SPINE1_Ethernet9/1
    no shutdown
    mtu 1500
    no switchport
    ip address 10.0.0.1/31
 !
-interface Ethernet2
-   description P2P_SPINE2_Ethernet1
+interface Ethernet22
+   description P2P_SPINE2_Ethernet1/1
    no shutdown
    mtu 1500
    no switchport
    ip address 10.0.0.3/31
 !
-interface Ethernet3
-   description MLAG_LEAF2_Ethernet3
+interface Ethernet45
+   description MLAG_LEAF2_Ethernet43
    no shutdown
-   channel-group 3 mode active
-!
-interface Ethernet4
-   description MLAG_LEAF2_Ethernet4
-   no shutdown
-   channel-group 3 mode active
-!
-interface Ethernet5
-   description SERVER_HOSTA_eth1
-   no shutdown
-   channel-group 5 mode active
+   channel-group 45 mode active
 ```
 
 ### Port-Channel Interfaces
@@ -363,28 +357,27 @@ interface Ethernet5
 
 | Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | LACP Fallback Timeout | LACP Fallback Mode | MLAG ID | EVPN ESI |
 | --------- | ----------- | ---- | ----- | ----------- | ------------| --------------------- | ------------------ | ------- | -------- |
-| Port-Channel3 | MLAG_LEAF2_Port-Channel3 | trunk | - | - | MLAG | - | - | - | - |
-| Port-Channel5 | SERVER_HOSTA | access | 10 | - | - | - | - | 5 | - |
+| Port-Channel1 | SERVER_HOSTA | access | 10 | - | - | - | - | 1 | - |
+| Port-Channel45 | MLAG_LEAF2_Port-Channel43 | trunk | - | - | MLAG | - | - | - | - |
 
 #### Port-Channel Interfaces Device Configuration
 
 ```eos
 !
-interface Port-Channel3
-   description MLAG_LEAF2_Port-Channel3
-   no shutdown
-   switchport mode trunk
-   switchport trunk group MLAG
-   switchport
-!
-interface Port-Channel5
+interface Port-Channel1
    description SERVER_HOSTA
    no shutdown
    switchport access vlan 10
    switchport mode access
    switchport
-   mlag 5
-   spanning-tree portfast
+   mlag 1
+!
+interface Port-Channel45
+   description MLAG_LEAF2_Port-Channel43
+   no shutdown
+   switchport mode trunk
+   switchport trunk group MLAG
+   switchport
 ```
 
 ### Loopback Interfaces
@@ -688,10 +681,10 @@ router bgp 65001
    neighbor 1.1.1.100 description SPINE2_Loopback0
    neighbor 10.0.0.0 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.0.0 remote-as 65000
-   neighbor 10.0.0.0 description SPINE1_Ethernet1
+   neighbor 10.0.0.0 description SPINE1_Ethernet9/1
    neighbor 10.0.0.2 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.0.2 remote-as 65000
-   neighbor 10.0.0.2 description SPINE2_Ethernet1
+   neighbor 10.0.0.2 description SPINE2_Ethernet1/1
    neighbor 10.1.254.1 peer group MLAG-IPv4-UNDERLAY-PEER
    neighbor 10.1.254.1 description LEAF2_Vlan4093
    redistribute connected route-map RM-CONN-2-BGP

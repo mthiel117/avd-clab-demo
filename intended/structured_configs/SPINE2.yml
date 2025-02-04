@@ -39,22 +39,17 @@ router_bgp:
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65001'
     peer: LEAF1
-    description: LEAF1_Ethernet2
+    description: LEAF1_Ethernet22
   - ip_address: 10.0.0.7
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65001'
     peer: LEAF2
-    description: LEAF2_Ethernet2
+    description: LEAF2_Ethernet21
   - ip_address: 10.0.0.11
     peer_group: IPv4-UNDERLAY-PEERS
     remote_as: '65002'
     peer: LEAF3
-    description: LEAF3_Ethernet2
-  - ip_address: 10.0.0.15
-    peer_group: IPv4-UNDERLAY-PEERS
-    remote_as: '65002'
-    peer: LEAF4
-    description: LEAF4_Ethernet2
+    description: LEAF3_Ethernet24
   - ip_address: 1.1.1.1
     peer_group: EVPN-OVERLAY-PEERS
     peer: LEAF1
@@ -69,11 +64,6 @@ router_bgp:
     peer_group: EVPN-OVERLAY-PEERS
     peer: LEAF3
     description: LEAF3_Loopback0
-    remote_as: '65002'
-  - ip_address: 1.1.1.4
-    peer_group: EVPN-OVERLAY-PEERS
-    peer: LEAF4
-    description: LEAF4_Loopback0
     remote_as: '65002'
   address_family_evpn:
     peer_groups:
@@ -111,7 +101,7 @@ management_interfaces:
   description: OOB_MANAGEMENT
   shutdown: false
   vrf: MGMT
-  ip_address: 172.31.0.23/23
+  ip_address: 172.31.0.38/23
   gateway: 172.31.0.1
   type: oob
 management_api_http:
@@ -119,46 +109,36 @@ management_api_http:
   - name: MGMT
   enable_https: true
 ethernet_interfaces:
-- name: Ethernet1
+- name: Ethernet1/1
   peer: LEAF1
-  peer_interface: Ethernet2
+  peer_interface: Ethernet22
   peer_type: l3leaf
-  description: P2P_LEAF1_Ethernet2
+  description: P2P_LEAF1_Ethernet22
   shutdown: false
   mtu: 1500
   switchport:
     enabled: false
   ip_address: 10.0.0.2/31
-- name: Ethernet2
+- name: Ethernet3/1
   peer: LEAF2
-  peer_interface: Ethernet2
+  peer_interface: Ethernet21
   peer_type: l3leaf
-  description: P2P_LEAF2_Ethernet2
+  description: P2P_LEAF2_Ethernet21
   shutdown: false
   mtu: 1500
   switchport:
     enabled: false
   ip_address: 10.0.0.6/31
-- name: Ethernet3
+- name: Ethernet5/1
   peer: LEAF3
-  peer_interface: Ethernet2
+  peer_interface: Ethernet24
   peer_type: l3leaf
-  description: P2P_LEAF3_Ethernet2
+  description: P2P_LEAF3_Ethernet24
   shutdown: false
   mtu: 1500
   switchport:
     enabled: false
   ip_address: 10.0.0.10/31
-- name: Ethernet4
-  peer: LEAF4
-  peer_interface: Ethernet2
-  peer_type: l3leaf
-  description: P2P_LEAF4_Ethernet2
-  shutdown: false
-  mtu: 1500
-  switchport:
-    enabled: false
-  ip_address: 10.0.0.14/31
 loopback_interfaces:
 - name: Loopback0
   description: ROUTER_ID

@@ -48,7 +48,7 @@
 
 | Management Interface | Description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management1 | OOB_MANAGEMENT | oob | MGMT | 172.31.0.22/23 | 172.31.0.1 |
+| Management1 | OOB_MANAGEMENT | oob | MGMT | 172.31.0.26/23 | 172.31.0.1 |
 
 ##### IPv6
 
@@ -64,7 +64,7 @@ interface Management1
    description OOB_MANAGEMENT
    no shutdown
    vrf MGMT
-   ip address 172.31.0.22/23
+   ip address 172.31.0.26/23
 ```
 
 ### DNS Domain
@@ -237,42 +237,34 @@ vlan internal order ascending range 1006 1199
 
 | Interface | Description | Channel Group | IP Address | VRF |  MTU | Shutdown | ACL In | ACL Out |
 | --------- | ----------- | ------------- | ---------- | ----| ---- | -------- | ------ | ------- |
-| Ethernet1 | P2P_LEAF1_Ethernet1 | - | 10.0.0.0/31 | default | 1500 | False | - | - |
-| Ethernet2 | P2P_LEAF2_Ethernet1 | - | 10.0.0.4/31 | default | 1500 | False | - | - |
-| Ethernet3 | P2P_LEAF3_Ethernet1 | - | 10.0.0.8/31 | default | 1500 | False | - | - |
-| Ethernet4 | P2P_LEAF4_Ethernet1 | - | 10.0.0.12/31 | default | 1500 | False | - | - |
+| Ethernet9/1 | P2P_LEAF1_Ethernet21 | - | 10.0.0.0/31 | default | 1500 | False | - | - |
+| Ethernet9/2 | P2P_LEAF2_Ethernet24 | - | 10.0.0.4/31 | default | 1500 | False | - | - |
+| Ethernet9/3 | P2P_LEAF3_Ethernet23 | - | 10.0.0.8/31 | default | 1500 | False | - | - |
 
 #### Ethernet Interfaces Device Configuration
 
 ```eos
 !
-interface Ethernet1
-   description P2P_LEAF1_Ethernet1
+interface Ethernet9/1
+   description P2P_LEAF1_Ethernet21
    no shutdown
    mtu 1500
    no switchport
    ip address 10.0.0.0/31
 !
-interface Ethernet2
-   description P2P_LEAF2_Ethernet1
+interface Ethernet9/2
+   description P2P_LEAF2_Ethernet24
    no shutdown
    mtu 1500
    no switchport
    ip address 10.0.0.4/31
 !
-interface Ethernet3
-   description P2P_LEAF3_Ethernet1
+interface Ethernet9/3
+   description P2P_LEAF3_Ethernet23
    no shutdown
    mtu 1500
    no switchport
    ip address 10.0.0.8/31
-!
-interface Ethernet4
-   description P2P_LEAF4_Ethernet1
-   no shutdown
-   mtu 1500
-   no switchport
-   ip address 10.0.0.12/31
 ```
 
 ### Loopback Interfaces
@@ -398,11 +390,9 @@ ASN Notation: asplain
 | 1.1.1.1 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
 | 1.1.1.2 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
 | 1.1.1.3 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
-| 1.1.1.4 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
 | 10.0.0.1 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - |
 | 10.0.0.5 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - |
 | 10.0.0.9 | 65002 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - |
-| 10.0.0.13 | 65002 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - |
 
 #### Router BGP EVPN Address Family
 
@@ -440,21 +430,15 @@ router bgp 65000
    neighbor 1.1.1.3 peer group EVPN-OVERLAY-PEERS
    neighbor 1.1.1.3 remote-as 65002
    neighbor 1.1.1.3 description LEAF3_Loopback0
-   neighbor 1.1.1.4 peer group EVPN-OVERLAY-PEERS
-   neighbor 1.1.1.4 remote-as 65002
-   neighbor 1.1.1.4 description LEAF4_Loopback0
    neighbor 10.0.0.1 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.0.1 remote-as 65001
-   neighbor 10.0.0.1 description LEAF1_Ethernet1
+   neighbor 10.0.0.1 description LEAF1_Ethernet21
    neighbor 10.0.0.5 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.0.5 remote-as 65001
-   neighbor 10.0.0.5 description LEAF2_Ethernet1
+   neighbor 10.0.0.5 description LEAF2_Ethernet24
    neighbor 10.0.0.9 peer group IPv4-UNDERLAY-PEERS
    neighbor 10.0.0.9 remote-as 65002
-   neighbor 10.0.0.9 description LEAF3_Ethernet1
-   neighbor 10.0.0.13 peer group IPv4-UNDERLAY-PEERS
-   neighbor 10.0.0.13 remote-as 65002
-   neighbor 10.0.0.13 description LEAF4_Ethernet1
+   neighbor 10.0.0.9 description LEAF3_Ethernet23
    redistribute connected route-map RM-CONN-2-BGP
    !
    address-family evpn

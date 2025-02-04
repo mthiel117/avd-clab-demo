@@ -4,11 +4,11 @@ port_profiles:
   - profile: PP-VLAN10
     mode: "access"
     vlans: "10"
-    spanning_tree_portfast: edge
+    # spanning_tree_portfast: edge
   - profile: PP-VLAN20
     mode: "access"
     vlans: "20"
-    spanning_tree_portfast: edge
+    # spanning_tree_portfast: edge
 
 ###########################################################
 # ---------------- Endpoint Connectivity ---------------- #
@@ -23,8 +23,8 @@ servers:
   - name: HOSTA                                      # Server name
     rack: RACK1                                         # Informational RACK (optional)
     adapters:
-      - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
-        switch_ports: [ Ethernet5, Ethernet5 ]          # Switch port to connect server (required)
+      - endpoint_ports: [ eth21, eth1 ]                  # Server port to connect (optional)
+        switch_ports: [ Ethernet1, Ethernet5 ]          # Switch port to connect server (required)
         switches: [ LEAF1, LEAF2 ]                # Switch to connect server (required)
         profile: PP-VLAN10                              # Port profile to apply (required)
         port_channel:
@@ -37,9 +37,9 @@ servers:
   - name: HOSTB                                      # Server name
     rack: RACK2                                         # Informational RACK (optional)
     adapters:
-      - endpoint_ports: [ eth1, eth2 ]                  # Server port to connect (optional)
-        switch_ports: [ Ethernet5, Ethernet5 ]          # Switch port to connect server (required)
-        switches: [ LEAF3, LEAF4 ]                # Switch to connect server (required)
+      - endpoint_ports: [ eth2 ]                  # Server port to connect (optional)
+        switch_ports: [ Ethernet4 ]          # Switch port to connect server (required)
+        switches: [ LEAF3 ]                # Switch to connect server (required)
         profile: PP-VLAN20                              # Port profile to apply (required)
-        port_channel:
-          mode: active
+        # port_channel:
+        #   mode: active
