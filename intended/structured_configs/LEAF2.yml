@@ -13,6 +13,8 @@ router_bgp:
     connected:
       enabled: true
       route_map: RM-CONN-2-BGP
+  updates:
+    wait_install: true
   peer_groups:
   - name: MLAG-IPv4-UNDERLAY-PEER
     type: ipv4
@@ -91,6 +93,8 @@ router_bgp:
     - ip_address: 10.1.254.0
       peer_group: MLAG-IPv4-UNDERLAY-PEER
       description: LEAF1_Vlan3001
+    updates:
+      wait_install: true
   vlans:
   - id: 10
     tenant: MY_FABRIC
@@ -135,7 +139,7 @@ vrfs:
   tenant: MY_FABRIC
   ip_routing: true
 management_interfaces:
-- name: Management0
+- name: Management1
   description: OOB_MANAGEMENT
   shutdown: false
   vrf: MGMT
@@ -337,4 +341,4 @@ vxlan_interface:
 
       '
 metadata:
-  platform: cEOS
+  platform: '7280'

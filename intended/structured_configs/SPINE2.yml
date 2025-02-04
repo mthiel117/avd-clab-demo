@@ -13,6 +13,8 @@ router_bgp:
     connected:
       enabled: true
       route_map: RM-CONN-2-BGP
+  updates:
+    wait_install: true
   peer_groups:
   - name: IPv4-UNDERLAY-PEERS
     type: ipv4
@@ -105,7 +107,7 @@ vrfs:
 - name: MGMT
   ip_routing: false
 management_interfaces:
-- name: Management0
+- name: Management1
   description: OOB_MANAGEMENT
   shutdown: false
   vrf: MGMT
@@ -180,4 +182,4 @@ router_bfd:
     min_rx: 300
     multiplier: 3
 metadata:
-  platform: cEOS
+  platform: 7050SX3

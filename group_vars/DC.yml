@@ -30,15 +30,15 @@ aaa_authorization:
 
 # OOB Management network default gateway.
 mgmt_gateway: 172.31.0.1
-mgmt_interface: Management0
+mgmt_interface: Management1
 mgmt_interface_vrf: MGMT
 
 # NTP Servers IP or DNS name, first NTP server will be preferred, and sourced from Management VRF
 ntp:
   servers:
     - name: time.google.com
-      iburst: true
-      local_interface: Management0
+      # iburst: true
+      # local_interface: Management0
       vrf: MGMT
 
 # Domain/DNS

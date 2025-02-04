@@ -4,7 +4,7 @@ fabric_name: DC_FABRIC
 # Spine Switches
 spine:
   defaults:
-    platform: cEOS
+    platform: 7050SX3
     bgp_as: 65000
     spanning_tree_mode: mstp
     spanning_tree_priority: 4096
@@ -23,7 +23,7 @@ spine:
 # Leaf Switches
 l3leaf:
   defaults:
-    platform: cEOS
+    platform: 7280
     loopback_ipv4_pool: 1.1.1.0/24
     vtep_loopback_ipv4_pool: 2.2.2.0/24
     mlag_peer_ipv4_pool: 10.1.253.0/24

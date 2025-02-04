@@ -60,19 +60,19 @@
 
 | Management Interface | Description | Type | VRF | IP Address | Gateway |
 | -------------------- | ----------- | ---- | --- | ---------- | ------- |
-| Management0 | OOB_MANAGEMENT | oob | MGMT | 172.31.0.28/23 | 172.31.0.1 |
+| Management1 | OOB_MANAGEMENT | oob | MGMT | 172.31.0.28/23 | 172.31.0.1 |
 
 ##### IPv6
 
 | Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway |
 | -------------------- | ----------- | ---- | --- | ------------ | ------------ |
-| Management0 | OOB_MANAGEMENT | oob | MGMT | - | - |
+| Management1 | OOB_MANAGEMENT | oob | MGMT | - | - |
 
 #### Management Interfaces Device Configuration
 
 ```eos
 !
-interface Management0
+interface Management1
    description OOB_MANAGEMENT
    no shutdown
    vrf MGMT
@@ -112,13 +112,13 @@ ip name-server vrf MGMT 8.8.8.8
 
 | Server | VRF | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Key |
 | ------ | --- | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | --- |
-| time.google.com | MGMT | - | - | True | - | - | - | Management0 | - |
+| time.google.com | MGMT | - | - | - | - | - | - | - | - |
 
 #### NTP Device Configuration
 
 ```eos
 !
-ntp server vrf MGMT time.google.com iburst local-interface Management0
+ntp server vrf MGMT time.google.com
 ```
 
 ### Management API HTTP
@@ -589,6 +589,7 @@ ASN Notation: asplain
 
 | BGP Tuning |
 | ---------- |
+| update wait-install |
 | no bgp default ipv4-unicast |
 | maximum-paths 4 ecmp 4 |
 
@@ -660,6 +661,7 @@ ASN Notation: asplain
 !
 router bgp 65001
    router-id 1.1.1.2
+   update wait-install
    no bgp default ipv4-unicast
    maximum-paths 4 ecmp 4
    neighbor EVPN-OVERLAY-PEERS peer group
@@ -712,6 +714,7 @@ router bgp 65001
       route-target import evpn 1:1
       route-target export evpn 1:1
       router-id 1.1.1.2
+      update wait-install
       neighbor 10.1.254.0 peer group MLAG-IPv4-UNDERLAY-PEER
       neighbor 10.1.254.0 description LEAF1_Vlan3001
       redistribute connected route-map RM-CONN-2-BGP-VRFS

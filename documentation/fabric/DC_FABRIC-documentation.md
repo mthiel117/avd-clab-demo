@@ -17,12 +17,12 @@
 
 | POD | Type | Node | Management IP | Platform | Provisioned in CloudVision | Serial Number |
 | --- | ---- | ---- | ------------- | -------- | -------------------------- | ------------- |
-| DC_FABRIC | l3leaf | LEAF1 | 172.31.0.27/23 | cEOS | Provisioned | - |
-| DC_FABRIC | l3leaf | LEAF2 | 172.31.0.28/23 | cEOS | Provisioned | - |
-| DC_FABRIC | l3leaf | LEAF3 | 172.31.0.29/23 | cEOS | Provisioned | - |
-| DC_FABRIC | l3leaf | LEAF4 | 172.31.0.19/23 | cEOS | Provisioned | - |
-| DC_FABRIC | spine | SPINE1 | 172.31.0.22/23 | cEOS | Provisioned | - |
-| DC_FABRIC | spine | SPINE2 | 172.31.0.23/23 | cEOS | Provisioned | - |
+| DC_FABRIC | l3leaf | LEAF1 | 172.31.0.27/23 | 7280 | Provisioned | - |
+| DC_FABRIC | l3leaf | LEAF2 | 172.31.0.28/23 | 7280 | Provisioned | - |
+| DC_FABRIC | l3leaf | LEAF3 | 172.31.0.29/23 | 7280 | Provisioned | - |
+| DC_FABRIC | l3leaf | LEAF4 | 172.31.0.19/23 | 7280 | Provisioned | - |
+| DC_FABRIC | spine | SPINE1 | 172.31.0.22/23 | 7050SX3 | Provisioned | - |
+| DC_FABRIC | spine | SPINE2 | 172.31.0.23/23 | 7050SX3 | Provisioned | - |
 
 > Provision status is based on Ansible inventory declaration and do not represent real status from CloudVision.
 
